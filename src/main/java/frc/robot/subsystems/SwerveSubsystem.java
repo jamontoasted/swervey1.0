@@ -14,6 +14,7 @@ import java.util.function.Supplier;
 
 import com.thethriftybot.ThriftyNova.PIDConfig;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotController;
 import swervelib.parser.SwerveParser;
@@ -24,6 +25,18 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.commands.PathfindingCommand;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.util.DriveFeedforwards;
+import com.pathplanner.lib.util.swerve.SwerveSetpoint;
+import com.pathplanner.lib.util.swerve.SwerveSetpointGenerator;
 
 import static edu.wpi.first.units.Units.Meter;
 
@@ -48,6 +61,7 @@ public SwerveSubsystem() {
     {
       throw new RuntimeException(e);
     }
+    setupPathPlanner();
 }
 
   /**
@@ -161,4 +175,16 @@ public SwerveSubsystem() {
      e.printStackTrace();
    }  
 }
+
+  /**
+   * Get the path follower with events.
+   *
+   * @param pathName PathPlanner path name.
+   * @return {@link AutoBuilder#followPath(PathPlannerPath)} path command.
+   */
+  public Command getAutonomousCommand(String pathName)
+  {
+    // Create a path following command using AutoBuilder. This will also trigger event markers.
+    return new PathPlannerAuto(pathName);
+  }
 }
