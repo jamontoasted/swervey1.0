@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotController;
 import swervelib.parser.SwerveParser;
+import swervelib.telemetry.SwerveDriveTelemetry;
+import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 import swervelib.SwerveDrive;
 import swervelib.SwerveInputStream;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -48,6 +50,8 @@ File directory = new File(Filesystem.getDeployDirectory(),"swerve");
 SwerveDrive  swerveDrive;
 
 public SwerveSubsystem() {
+
+  SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
 
     try
     {
