@@ -49,7 +49,7 @@ SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerv
                                                                 () -> m_driverController.getLeftX() * -1)
                                                                 .withControllerRotationAxis(m_driverController::getRightX)
                                                                 .deadband(OperatorConstants.DEADBAND)
-                                                                .scaleTranslation(0.8)
+                                                                .scaleTranslation(0.5)
                                                                 .allianceRelativeControl(true);
 
   SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_driverController::getRightX, 
